@@ -11,7 +11,7 @@ class LoginAdministradorViewModel: ViewModel(){
     val errorMessage: StateFlow<String?> = _errorMessage
 
     fun validateLogin(user: String, pass: String) {
-        if (user == "mate" && pass == "mate") {
+        if (user == "mate" && pass == "mate") { //aqui que verifique nuestros usuarios
             _loginSuccess.value = true
             _errorMessage.value = null
         } else {

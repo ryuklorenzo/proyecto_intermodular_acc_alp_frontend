@@ -1,78 +1,49 @@
 package acc.alp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
-
-import proyecto_intermodular_acc_alp_frontend.composeapp.generated.resources.Res
-import proyecto_intermodular_acc_alp_frontend.composeapp.generated.resources.compose_multiplatform
-
-import androidx.compose.runtime.*
-import acc.alp.logged.ui.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
+import acc.alp.logged.ui.*
+import androidx.compose.ui.tooling.preview.Preview
 
 @Suppress("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun App() {
-//    MaterialTheme {
-//        var showContent by remember { mutableStateOf(false) }
-//        Column(
-//            modifier = Modifier
-//                .background(MaterialTheme.colorScheme.primaryContainer)
-//                .safeContentPadding()
-//                .fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//        ) {
-//            Button(onClick = { showContent = !showContent }) {
-//                Text("Click me!")
-//            }
-//            AnimatedVisibility(showContent) {
-//                val greeting = remember { Greeting().greet() }
-//                Column(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                ) {
-//                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-//                    Text("Compose: $greeting")
-//                }
-//            }
-//        }
-//    }
+    // 1. El tema es obligatorio para componentes Material3
+    MaterialTheme {
+        // 2. IMPORTANTE: Surface proporciona el fondo y el color base para el texto.
+        // Sin esto, la pantalla puede verse vacía o negra en Desktop.
+        Surface(modifier = Modifier.fillMaxSize()) {
 
-    val navController= rememberNavController()
-    NavHost(
-        navController,
-        startDestination = AppRoutes.Loggin
-    ) {
-        composable(AppRoutes.Loggin) {
-            val loginVM = remember { LoginAdministradorViewModel() }
+            val navController = rememberNavController()
 
-            val isLogged by loginVM.loginSuccess.collectAsState()
+            NavHost(
+                navController = navController,
+                startDestination = AppRoutes.Loggin
+            ) {
+                composable(AppRoutes.Loggin) {
+                    val loginVM = remember { LoginAdministradorViewModel() }
+                    val isLogged by loginVM.loginSuccess.collectAsState()
 
-            if (!isLogged) {
-                LoginAdminScreen(
-                    viewModel = loginVM,
-                    onLoginSuccess = {
+                    if (!isLogged) {
+                        LoginAdminScreen(
+                            viewModel = loginVM,
+                            onLoginSuccess = {
+                                // Lógica extra al loguearse si es necesaria
+                            }
+                        )
+                    } else {
+                        // Cuando isLogged es true, se muestra esto.
+                        MainAdministrador()
                     }
-                )
-            } else {
-                MainAdministrador()
+                }
             }
         }
     }
