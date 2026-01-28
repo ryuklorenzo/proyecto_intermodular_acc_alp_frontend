@@ -19,6 +19,14 @@ import org.jetbrains.compose.resources.painterResource
 import proyecto_intermodular_acc_alp_frontend.composeapp.generated.resources.Res
 import proyecto_intermodular_acc_alp_frontend.composeapp.generated.resources.compose_multiplatform
 
+import androidx.compose.runtime.*
+import acc.alp.logged.ui.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
+
+@Suppress("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun App() {
@@ -50,9 +58,9 @@ fun App() {
     val navController= rememberNavController()
     NavHost(
         navController,
-        startDestination = Loggin
+        startDestination = AppRoutes.Loggin
     ) {
-        composable(Loggin) {
+        composable(AppRoutes.Loggin) {
             val loginVM = remember { LoginAdministradorViewModel() }
 
             val isLogged by loginVM.loginSuccess.collectAsState()
