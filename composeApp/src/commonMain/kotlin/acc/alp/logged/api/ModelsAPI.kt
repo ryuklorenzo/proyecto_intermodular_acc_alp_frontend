@@ -11,6 +11,6 @@ data class Login_request(
 )
 @Serializable
 data class Login_response(
-    @SerialName("access_token") val name: String? = null,
-    @SerialName("token_type") val password: String? = null
+    @SerialName("access_token") val accessToken: String,
+    @SerialName("token_type") val tokenType: String
 )
