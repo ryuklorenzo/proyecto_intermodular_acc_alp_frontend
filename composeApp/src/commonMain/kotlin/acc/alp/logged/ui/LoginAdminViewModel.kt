@@ -3,6 +3,8 @@ package acc.alp.logged.ui
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import acc.alp.logged.api.Login_response
+import acc.alp.logged.api.Login_request
 
 class LoginAdministradorViewModel: ViewModel(){
     private val _loginSuccess = MutableStateFlow(false)
@@ -11,7 +13,8 @@ class LoginAdministradorViewModel: ViewModel(){
     val errorMessage: StateFlow<String?> = _errorMessage
 
     fun validateLogin(user: String, pass: String) {
-        if (user == "mate" && pass == "mate") { //aqui que verifique nuestros usuarios
+        //aqui quiero cambiar esta validacion por la funcion de validar login de funciones API
+        if (user == "mate" && pass == "mate") {
             _loginSuccess.value = true
             _errorMessage.value = null
         } else {
