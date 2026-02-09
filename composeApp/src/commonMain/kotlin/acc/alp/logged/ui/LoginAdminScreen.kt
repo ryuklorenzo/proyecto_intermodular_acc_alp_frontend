@@ -21,6 +21,7 @@ fun LoginAdminScreen(
     var pass by remember { mutableStateOf("") }
     val loginOK by viewModel.loginSuccess.collectAsState()
     val errorMsg by viewModel.errorMessage.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     if (loginOK) {
         onLoginSuccess()
@@ -55,7 +56,7 @@ fun LoginAdminScreen(
 
         Button(
             onClick = { viewModel.validateLogin(user, pass) },
-            enabled = user.isNotBlank() && pass.isNotBlank()
+            enabled = user.isNotBlank() && pass.isNotBlank() && !isLoading
         ) {
             Text("Entrar")
         }
